@@ -27,12 +27,16 @@ def displayBoard(board_lst):
 import random
 import sys
 
+n = int(input('n: '))
+
 def tileLabels(n):
     tiles = []
-    for i in range(1, (n**2)):
+    for i in range(1, n**2):
         tiles.append(str(i))
     tiles.append('  ')
     return tiles
+
+print(tileLabels(n))
 
 def getNewPuzzle(n):
     puzzle = []
@@ -45,6 +49,10 @@ def getNewPuzzle(n):
             if len(sublist[j]) == 1:
                 sublist[j] += ' '
         puzzle.append(sublist)
+    return puzzle
+
+puzzle = getNewPuzzle(n)
+displayBoard(puzzle)
 
 def findEmptyTile(puzzle):
     for row in range(len(puzzle)):
@@ -52,22 +60,24 @@ def findEmptyTile(puzzle):
             if puzzle[row][elem] == '  ':
                 return (row, elem)
 
+print(findEmptyTile(puzzle))
+
 def nextMove(puzzle):
     empty = findEmptyTile(puzzle)
     n = len(puzzle)
-    possible = [w, a, s, d] = [' ', ' ', ' ', ' ']
+    possible = [' ', ' ', ' ', ' ']
     if empty[0] != 0:
-        w = 'W'
+        possible[0] = 'W'
     if empty[0] != (n-1):
-        s = 'S'
+        possible[1] = 'S'
     if empty[1] != 0:
-        a = 'A'
+        possible[2] = 'A'
     if empty[1] != (n-1):
-        d = 'D'
+        possible[3] = 'D'
     
     valid = False
     while not valid:
-        move = input(f'                          ({w})\nEnter WASD (or QUIT): ({a}) ({s}) ({d})\n')
+        move = input(f'                          ({possible[0]})\nEnter WASD (or QUIT): ({possible[2]}) ({possible[1]}) ({possible[3]})\n')
         if move.upper() in possible:
             valid = True
         elif move.lower() == 'quit':
@@ -77,4 +87,4 @@ def nextMove(puzzle):
             
     return move.upper()
 
-nextMove(getNewPuzzle(4))
+nextMove(puzzle)
