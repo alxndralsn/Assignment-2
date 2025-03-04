@@ -27,16 +27,12 @@ def displayBoard(board_lst):
 import random
 import sys
 
-n = int(input('n: '))
-
 def tileLabels(n):
     tiles = []
     for i in range(1, n**2):
         tiles.append(str(i))
     tiles.append('  ')
     return tiles
-
-print(tileLabels(n))
 
 def getNewPuzzle(n):
     puzzle = []
@@ -51,16 +47,11 @@ def getNewPuzzle(n):
         puzzle.append(sublist)
     return puzzle
 
-puzzle = getNewPuzzle(n)
-displayBoard(puzzle)
-
 def findEmptyTile(puzzle):
     for row in range(len(puzzle)):
-        for elem in range(len(puzzle)):
-            if puzzle[row][elem] == '  ':
-                return (row, elem)
-
-print(findEmptyTile(puzzle))
+        for col in range(len(puzzle)):
+            if puzzle[row][col] == '  ':
+                return (row, col)
 
 def nextMove(puzzle):
     empty = findEmptyTile(puzzle)
@@ -86,5 +77,3 @@ def nextMove(puzzle):
             print('Invalid input!')
             
     return move.upper()
-
-nextMove(puzzle)
