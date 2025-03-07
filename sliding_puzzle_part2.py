@@ -72,6 +72,7 @@ def nextMove(puzzle):
         if move.upper() in possible:
             valid = True
         elif move.lower() == 'quit':
+            print('Until next time!')
             sys.exit()
         else:
             print('Invalid input!')
@@ -91,6 +92,18 @@ def makeMove(puzzle, move):
     elif move == 'D':
         puzzle[e_row][e_col], puzzle[e_row][e_col-1] = puzzle[e_row][e_col-1], puzzle[e_row][e_col]
 
+def solved(puzzle, n):
+    sorted_puzzle = []
+    tiles = tileLabels(n)
+    for i in range(n):
+        sublist = []
+        for j in range(n):
+            sublist.append(tiles.pop(0))
+            if len(sublist[j]) == 1:
+                sublist[j] += ' '
+        sorted_puzzle.append(sublist)
+    return puzzle == sorted_puzzle
+
 # Main program
 print('''Hello! Welcome to the sliding puzzle game!
 You are given an n x n tile board, where one of the tiles is empty and all other tiles are integers.
@@ -109,8 +122,23 @@ displayBoard(puzzle)
 print()
 
 moves = 0
-while True:
+Done = False
+while not Done:
     move = nextMove(puzzle)
     makeMove(puzzle, move)
     displayBoard(puzzle)
     moves += 1
+
+    Done = solved(puzzle, n)
+
+if n == 3:
+    if moves <= 31:
+        print(f'Congratulations! You solved it in {moves} moves!')
+    else:
+        print('Best of luck next time!')
+elif n == 4:
+    if moves <= 80:
+        print(f'Congratulations! You solved it in {moves} moves!')
+    else:
+        print(f'You solved the puzzle, but did it in {moves} moves...')
+        print('Best of luck next time!')
