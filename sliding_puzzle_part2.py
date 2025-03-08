@@ -113,7 +113,7 @@ Tiles can only slide to an adjacent empty cell.
 Possible valid moves are: left, right, up, down. 
 ''')
 
-n = int(input('Please input n (dimension of the board): '))
+n = int(input('Please input the dimension of the board (n): '))
 print()
 
 puzzle = getNewPuzzle(n)
@@ -135,6 +135,7 @@ if n == 3:
     if moves <= 31:
         print(f'Congratulations! You solved it in {moves} moves!')
     else:
+        print(f'You solved the puzzle, but did it in {moves} moves...')
         print('Best of luck next time!')
 elif n == 4:
     if moves <= 80:
@@ -142,3 +143,5 @@ elif n == 4:
     else:
         print(f'You solved the puzzle, but did it in {moves} moves...')
         print('Best of luck next time!')
+else:
+    print(f'Congratulations! You solved it in {moves} moves!')
